@@ -7,6 +7,10 @@
     "start": "node src/server.js",
     "test": "node --test tests/*.test.js",
     "smoke": "powershell -ExecutionPolicy Bypass -File scripts/smoke-test.ps1",
-    "package:win": "powershell -ExecutionPolicy Bypass -Command \"New-Item -ItemType Directory -Force outputs | Out-Null; Compress-Archive -Path package.json,src,public,docs,scripts -DestinationPath outputs/lan-gateway-analyzer.zip -Force\""
+    "package:win": "powershell -ExecutionPolicy Bypass -File scripts/package-win.ps1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.1",
+    "postject": "^1.0.0-alpha.6"
   }
 }

@@ -49,6 +49,14 @@ The package is created at:
 outputs/lan-gateway-analyzer.zip
 ```
 
+The Windows executable is created at:
+
+```text
+outputs/lan-gateway-analyzer.exe
+```
+
+Keep the generated `public` folder beside the exe when using the packaged output.
+
 ## Target Dual-NIC Topology
 
 The intended real deployment is:
@@ -72,4 +80,3 @@ The Node build keeps real packet forwarding behind `src/adapters/gatewayAdapter.
 - Npcap plus a separate enforcement component
 
 Those integrations require administrator privileges and driver installation. The current simulator mode is intentionally safe for development and UI validation.
-
