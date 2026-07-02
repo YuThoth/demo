@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LAN Gateway Traffic Analyzer</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">LG</span>
+        <div>
+          <strong>流量网关</strong>
+          <small>Traffic Analyzer</small>
+        </div>
+      </div>
+      <nav>
+        <button class="nav active" data-section="dashboard">仪表盘</button>
+        <button class="nav" data-section="devices">设备</button>
+        <button class="nav" data-section="traffic">流量</button>
+        <button class="nav" data-section="dns">域名</button>
+        <button class="nav" data-section="security">安全</button>
+        <button class="nav" data-section="policies">策略</button>
+        <button class="nav" data-section="reports">报表</button>
+        <button class="nav" data-section="settings">设置</button>
+      </nav>
+    </aside>
+    <main>
+      <header>
+        <div>
+          <h1>双网卡流量分析网关</h1>
+          <p>设备识别、实时流量、域名审计、安全告警、策略管控和报表。</p>
+        </div>
+        <span id="mode" class="pill">加载中</span>
+      </header>
+
+      <section id="dashboard" class="section active">
+        <div class="metrics">
+          <article><span>在线设备</span><strong id="metric-devices">0</strong></article>
+          <article><span>下行速率</span><strong id="metric-down">0 bps</strong></article>
+          <article><span>上行速率</span><strong id="metric-up">0 bps</strong></article>
+          <article><span>安全告警</span><strong id="metric-alerts">0</strong></article>
+        </div>
+        <div class="grid two">
+          <div class="panel">
+            <h2>Top 用户流量</h2>
+            <div id="top-devices" class="list"></div>
+          </div>
+          <div class="panel">
+            <h2>最近告警</h2>
+            <div id="recent-alerts" class="list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="devices" class="section">
+        <div class="panel"><h2>设备</h2><table id="devices-table"></table></div>
+      </section>
+      <section id="traffic" class="section">
+        <div class="panel"><h2>流量</h2><table id="traffic-table"></table></div>
+      </section>
+      <section id="dns" class="section">
+        <div class="grid two">
+          <div class="panel"><h2>域名排行</h2><div id="dns-ranking" class="list"></div></div>
+          <div class="panel"><h2>DNS 记录</h2><table id="dns-table"></table></div>
+        </div>
+      </section>
+      <section id="security" class="section">
+        <div class="panel"><h2>安全告警</h2><table id="alerts-table"></table></div>
+      </section>
+      <section id="policies" class="section">
+        <div class="panel"><h2>策略</h2><table id="policies-table"></table></div>
+      </section>
+      <section id="reports" class="section">
+        <div class="panel">
+          <h2>报表</h2>
+          <p>导出设备流量 CSV 报表。</p>
+          <a class="primary" href="/api/reports/traffic.csv" download="traffic-report.csv">下载流量报表</a>
+        </div>
+      </section>
+      <section id="settings" class="section">
+        <div class="panel"><h2>设置</h2><dl id="settings-list"></dl></div>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>
