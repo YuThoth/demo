@@ -1,0 +1,8 @@
+.superpowers/
+work/
+outputs/
+*.log
+*.tmp
+node_modules/
+dist/
+build/
