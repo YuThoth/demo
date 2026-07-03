@@ -1,0 +1,14 @@
+config lan-analyzer 'main'
+	option enabled '1'
+	option interface 'lan'
+	option sample_interval '5'
+	option retention_days '7'
+	option dns_log '1'
+	option enforcement '0'
+	option report_dir '/tmp/lan-analyzer'
+
+config rule 'default_dns_block'
+	option enabled '1'
+	option type 'domain-block'
+	option value 'malware.example'
+

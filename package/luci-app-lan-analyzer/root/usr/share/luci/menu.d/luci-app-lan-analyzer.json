@@ -1,0 +1,14 @@
+{
+  "admin/services/lan-analyzer": {
+    "title": "局域网流量分析",
+    "order": 65,
+    "action": {
+      "type": "view",
+      "path": "lan-analyzer/index"
+    },
+    "depends": {
+      "acl": [ "luci-app-lan-analyzer" ],
+      "uci": { "lan-analyzer": true }
+    }
+  }
+}

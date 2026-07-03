@@ -1,0 +1,19 @@
+{
+  "luci-app-lan-analyzer": {
+    "description": "Grant access to LAN Analyzer LuCI app",
+    "read": {
+      "file": {
+        "/usr/libexec/lan-analyzer/lan-analyzer.sh": [ "exec" ],
+        "/tmp/lan-analyzer/*": [ "read" ],
+        "/etc/config/lan-analyzer": [ "read" ]
+      },
+      "uci": [ "lan-analyzer", "network", "dhcp", "system" ]
+    },
+    "write": {
+      "file": {
+        "/usr/libexec/lan-analyzer/lan-analyzer.sh": [ "exec" ]
+      },
+      "uci": [ "lan-analyzer" ]
+    }
+  }
+}
