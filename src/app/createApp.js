@@ -8,6 +8,7 @@ import { getTrafficSummary } from "../domain/flows.js";
 import { rankDomains } from "../domain/dns.js";
 import { runSecurityDetections } from "../domain/security.js";
 import { createTrafficCsvReport } from "../domain/reports.js";
+import { getSystemInfo } from "../domain/system.js";
 
 const MIME_TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -42,6 +43,7 @@ async function sendStatic(req, res) {
 
 export function createApp(options = {}) {
   const simulatorEnabled = options.simulatorEnabled !== false;
+  const startedAt = Date.now();
   const state = createInitialState();
   const simulator = createSimulator();
   const gateway = createGatewayAdapter();
@@ -78,6 +80,10 @@ export function createApp(options = {}) {
       }
       if (url.pathname === "/api/settings") {
         sendJson(res, { ...state.settings, gateway: gateway.status() });
+        return;
+      }
+      if (url.pathname === "/api/system") {
+        sendJson(res, getSystemInfo(state, { simulatorEnabled, startedAt, version: "0.1.0" }));
         return;
       }
       if (url.pathname === "/api/reports/traffic.csv") {

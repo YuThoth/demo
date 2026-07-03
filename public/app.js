@@ -4,7 +4,8 @@ const state = {
   dns: { recent: [], ranking: [] },
   alerts: [],
   policies: [],
-  settings: {}
+  settings: {},
+  system: {}
 };
 
 function fmtBytes(bytes) {
@@ -80,17 +81,40 @@ function render() {
     .filter(([key]) => key !== "gateway")
     .map(([key, value]) => `<dt>${key}</dt><dd>${Array.isArray(value) ? value.join(", ") : value}</dd>`)
     .join("");
+
+  document.getElementById("system-list").innerHTML = [
+    ["运行模式", state.system.mode === "simulator" ? "模拟模式" : "网关模式"],
+    ["软件版本", state.system.version],
+    ["服务状态", state.system.service?.status],
+    ["运行时长", `${state.system.service?.uptimeSeconds ?? 0} 秒`],
+    ["Node", state.system.runtime?.node],
+    ["平台", `${state.system.runtime?.platform || ""} / ${state.system.runtime?.arch || ""}`],
+    ["WAN 接口", state.system.network?.wanInterface],
+    ["LAN 接口", state.system.network?.lanInterface],
+    ["LAN 网段", state.system.network?.lanCidr],
+    ["DHCP 地址池", state.system.network?.dhcpPool],
+    ["上游 DNS", (state.system.network?.upstreamDns || []).join(", ")]
+  ].map(([key, value]) => `<dt>${key}</dt><dd>${value ?? ""}</dd>`).join("");
+
+  document.getElementById("system-counts").innerHTML = [
+    ["设备数", state.system.counts?.devices],
+    ["连接数", state.system.counts?.connections],
+    ["DNS 记录", state.system.counts?.dnsQueries],
+    ["告警数", state.system.counts?.alerts],
+    ["策略数", state.system.counts?.policies]
+  ].map(([key, value]) => `<dt>${key}</dt><dd>${value ?? 0}</dd>`).join("");
 }
 
 async function refresh() {
-  const [health, devices, traffic, dns, alerts, policies, settings] = await Promise.all([
+  const [health, devices, traffic, dns, alerts, policies, settings, system] = await Promise.all([
     getJson("/api/health"),
     getJson("/api/devices"),
     getJson("/api/traffic"),
     getJson("/api/dns"),
     getJson("/api/security"),
     getJson("/api/policies"),
-    getJson("/api/settings")
+    getJson("/api/settings"),
+    getJson("/api/system")
   ]);
   state.devices = devices;
   state.traffic = traffic;
@@ -98,6 +122,7 @@ async function refresh() {
   state.alerts = alerts;
   state.policies = policies;
   state.settings = settings;
+  state.system = system;
   document.getElementById("mode").textContent = health.mode === "simulator" ? "模拟模式" : "网关模式";
   render();
 }
